@@ -1,6 +1,10 @@
 plugins {
     id 'java'
+    id 'war'
 }
+
+sourceCompatibility = '21'
+targetCompatibility = '21'
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
@@ -12,8 +16,24 @@ repositories {
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
+    compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
 }
 
 test {
     useJUnitPlatform()
 }
+
+// Configure the WAR plugin
+//warファイルをビルドして、$buildDir/libsに配置。
+war {
+    archiveFileName = 'myapp.war'
+    destinationDirectory = file("$buildDir/libs")
+    webInf {
+        from('src/main/webapp/WEB-INF') {
+            include 'web.xml'
+        }
+    }
+}
+
+//deployタスクを追加
+

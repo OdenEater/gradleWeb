@@ -34,13 +34,11 @@ war {
         }
     }
 }
-
-task copyWarToTransferDir(type: Copy) {
-    dependsOn war
-    from 'build/libs'
-    into 'transfer'
-    include '*.war'
+// タスクを追加して、WARファイルをtransferディレクトリにコピー
+tasks.register('copyWarToTransferDir', Copy) {
+    dependsOn(tasks.named('war'))
+    from('build/libs')
+    into('transfer')
+    include('*.war')
 }
-
-
 

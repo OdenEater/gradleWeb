@@ -18,7 +18,7 @@ jobs:
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '17' # 必要なJavaバージョンを指定
+          java-version: '21' # 必要なJavaバージョンを指定
           distribution: 'temurin'
 
       # ③ Gradleをキャッシュしてセットアップ

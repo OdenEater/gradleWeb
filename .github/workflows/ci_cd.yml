@@ -1,5 +1,5 @@
 name: CI/CD Pipeline
-
+#github actionsのワークフロー定義ファイル
 on:
   push:
     branches:

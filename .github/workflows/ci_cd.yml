@@ -1,27 +1,23 @@
 name: CI/CD Pipeline
-#github actionsのワークフロー定義ファイル
 on:
   push:
     branches:
-      - master # masterブランチへのpushをトリガー
+      - master
 
 jobs:
   build:
-    runs-on: ubuntu-latest # GitHubが提供する仮想環境を使用
+    runs-on: ubuntu-latest
 
     steps:
-      # ① リポジトリをチェックアウト
       - name: Check out repository
         uses: actions/checkout@v3
 
-      # ② Java環境をセットアップ
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
-          java-version: '21' # 必要なJavaバージョンを指定
+          java-version: '21'
           distribution: 'temurin'
 
-      # ③ Gradleをキャッシュしてセットアップ
       - name: Cache Gradle dependencies
         uses: actions/cache@v3
         with:
@@ -30,14 +26,12 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle
 
-      # ④ Gradleタスクを実行してWARをビルド
       - name: Build WAR file
         run: |
-                chmod +x ./gradlew
-                ./gradlew war
-        
-              # ⑤ ビルド成果物をアーティファクトとして保存
-              - name: Upload WAR artifact
-                uses: actions/upload-artifact@v3
-                with:
-                  name: myapp-war
+          chmod +x ./gradlew
+          ./gradlew war
+
+      - name: Upload WAR artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: myapp-war

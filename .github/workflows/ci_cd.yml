@@ -33,5 +33,11 @@ jobs:
       # ④ Gradleタスクを実行してWARをビルド
       - name: Build WAR file
         run: |
-            chmod +x ./gradlew
-            ./gradlew war
+                chmod +x ./gradlew
+                ./gradlew war
+        
+              # ⑤ ビルド成果物をアーティファクトとして保存
+              - name: Upload WAR artifact
+                uses: actions/upload-artifact@v3
+                with:
+                  name: myapp-war

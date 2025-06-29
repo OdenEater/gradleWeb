@@ -32,4 +32,4 @@ jobs:
 
       # ④ Gradleタスクを実行してWARをビルド
       - name: Build WAR file
-        run: ./gradlew clean build
+        run: chmod + x ./gradlew clean build

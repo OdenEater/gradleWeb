@@ -34,9 +34,11 @@ war {
         }
     }
 }
-// タスクを定義して、WARファイルをtransferディレクトリにコピーする
-// warタスク実行後に、build/lobs配下のWARファイルをtransferディレクトリにコピー
-task copyWar(type: Copy) {
-    from "build/libs/myapp.war"
-    into 'transfer'
+// タスクを追加して、WARファイルをtransferディレクトリにコピー
+tasks.register('copyWarToTransferDir', Copy) {
+    dependsOn(tasks.named('war'))
+    from('build/libs')
+    into('transfer')
+    include('*.war')
 }
+

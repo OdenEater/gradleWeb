@@ -45,10 +45,3 @@ tasks.register('copyWarToTransferDir', Copy) {
     include('*.war')
 }
 
-// /dockerディレクトリのdeployToDocker.shを実行するタスクを追加
-tasks.register('runDockerTasks', Exec) {
-    dependsOn(tasks.named('copyWarToTransferDir'))
-    workingDir = file('docker')
-    commandLine 'bash', 'deployToDocker.sh'
-}
-

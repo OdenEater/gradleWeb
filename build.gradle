@@ -27,18 +27,16 @@ test {
 //warファイルをビルドして、$buildDir/libsに配置。
 war {
     archiveFileName = 'myapp.war'
-    destinationDirectory = file("$buildDir/libs")
+    destinationDirectory = file("build/libs")
     webInf {
         from('src/main/webapp/WEB-INF') {
             include 'web.xml'
         }
     }
 }
-// タスクを追加して、WARファイルをtransferディレクトリにコピー
-tasks.register('copyWarToTransferDir', Copy) {
-    dependsOn(tasks.named('war'))
-    from('build/libs')
-    into('transfer')
-    include('*.war')
+// タスクを定義して、WARファイルをtransferディレクトリにコピーする
+// warタスク実行後に、build/lobs配下のWARファイルをtransferディレクトリにコピー
+task copyWar(type: Copy) {
+    from "build/libs/myapp.war"
+    into 'transfer'
 }
-

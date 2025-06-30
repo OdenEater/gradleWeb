@@ -3,8 +3,11 @@ plugins {
     id 'war'
 }
 
-sourceCompatibility = '21'
-targetCompatibility = '21'
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
@@ -24,7 +27,7 @@ test {
 }
 
 // Configure the WAR plugin
-//warファイルをビルドして、$buildDir/libsに配置。
+//warファイルをビルドして、build/libsに配置。
 war {
     archiveFileName = 'myapp.war'
     destinationDirectory = file("build/libs")
@@ -34,11 +37,18 @@ war {
         }
     }
 }
-// タスクを追加して、WARファイルをtransferディレクトリにコピー
+// WARファイルをtransferディレクトリにコピー
 tasks.register('copyWarToTransferDir', Copy) {
     dependsOn(tasks.named('war'))
     from('build/libs')
     into('transfer')
     include('*.war')
+}
+
+// /dockerディレクトリのdeployToDocker.shを実行するタスクを追加
+tasks.register('runDockerTasks', Exec) {
+    dependsOn(tasks.named('copyWarToTransferDir'))
+    workingDir = file('docker')
+    commandLine 'bash', 'deployToDocker.sh'
 }
 

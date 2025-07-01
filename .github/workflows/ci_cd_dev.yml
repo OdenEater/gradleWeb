@@ -44,7 +44,7 @@ jobs:
           JAVA_HOME: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.7-6/x64
           JAVA_HOME_21_X64: /opt/hostedtoolcache/Java_Temurin-Hotspot_jdk/21.0.7-6/x64
 
-#define deployJobs with build job artifact
+  #define deployJobs with build job artifact
   deploy:
     runs-on: ubuntu-latest
     needs: build
@@ -77,6 +77,6 @@ jobs:
         run: |
           echo "Deploying WAR file to server..."
           ls -la ./artifacts
-          # /docker/download.sh を実行して検証環境にwarファイルをダウンロード
-          chmod +x ./docker/download.sh
-            ./docker/download.sh -r OdenEater/gradleWEB -d /windows/org
+          # /scripts/download_artifacts.sh を実行して検証環境にwarファイルをダウンロード
+          chmod +x ./scripts//download_artifacts.sh
+          ./scripts//download_artifacts.sh -r OdenEater/gradleWEB -d /windows/org

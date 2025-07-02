@@ -1,10 +1,31 @@
-version: '3.8'
 services:
   app:
     build:
-      context: .
+      context: ..
       dockerfile: docker/Dockerfile
     ports:
       - "8080:8080"
+#マウントディレクトリを定義。WARをdeployするので、/artifactsをwebappsにマウント
+    #volumes:
+    #- /artifacts:/usr/local/tomcat/webapps
+    depends_on:
+      - mysql
+    environment:
+      - DB_HOST=mysql
+      - DB_PORT=3306
+
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password1
+      MYSQL_DATABASE: myapp
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
     volumes:
-      - ../build/libs:/app
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data:
+    driver: local

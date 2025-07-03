@@ -72,11 +72,3 @@ jobs:
         with:
           name: myapp-war
           path: ./artifacts
-
-      - name: deploy to server
-        run: |
-          echo "Deploying WAR file to server..."
-          ls -la ./artifacts
-          # /scripts/download_artifacts.sh を実行して検証環境にwarファイルをダウンロード
-          chmod +x ./scripts//download_artifacts.sh
-          ./scripts//download_artifacts.sh -r OdenEater/gradleWEB -d /windows/org

@@ -1,18 +1,15 @@
-env:
-  # Define the environment variables for the pipeline
-  APPLICATION_NAME: myapp
-  BRANCH_NAME: ${{ github.ref_name }}
-  ARTIFACT_NAME: ${{ env.APPLICATION_NAME }}${{env.BRANCH_NAME}}.jar
-
+#ブランチnameがdev_で始まる場合に実行されるCI/CDパイプラインの設定
 name: CI/CD Pipeline
 on:
   push:
     branches:
       - dev_*
+      - master
 
 #このpipelineで扱う変数を定義
-
-
+env:
+  BRANCH_NAME: ${{ github.ref_name }}
+  BASE_NAME: myapp
 
 jobs:
   build:
@@ -21,6 +18,16 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+
+      - name: Set artifact name
+        run: |
+          if [[ $BRANCH_NAME == master ]]; then
+            echo "ARTIFACT_NAME=${BASE_NAME}-production" >> $GITHUB_ENV
+          else
+            ENV_NAME=${BRANCH_NAME#dev_}
+            echo "ARTIFACT_NAME=${BASE_NAME}-${ENV_NAME}" >> $GITHUB_ENV
+          fi
+          echo "アーティファクト名: $ARTIFACT_NAME"
 
       - name: Set up JDK
         uses: actions/setup-java@v3
@@ -64,6 +71,15 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v3
 
+      - name: Set artifact name
+        run: |
+          if [[ $BRANCH_NAME == master ]]; then
+            echo "ARTIFACT_NAME=${BASE_NAME}-production" >> $GITHUB_ENV
+          else
+            ENV_NAME=${BRANCH_NAME#dev_}
+            echo "ARTIFACT_NAME=${BASE_NAME}-${ENV_NAME}" >> $GITHUB_ENV
+          fi
+
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
@@ -81,5 +97,5 @@ jobs:
       - name: Download jar artifact
         uses: actions/download-artifact@v4
         with:
-          name: myappDev.jar
+          name: ${{ env.ARTIFACT_NAME }}
           path: ./artifacts

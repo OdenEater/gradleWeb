@@ -12,7 +12,7 @@ env:
   BASE_NAME: myapp
 
 jobs:
-  build_deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:

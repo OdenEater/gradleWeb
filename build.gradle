@@ -1,7 +1,6 @@
 plugins {
     id 'java'
-    id 'war'
-    id 'org.springframework.boot' version '3.2.6'
+    id 'org.springframework.boot' version '3.3.5'
     id 'io.spring.dependency-management' version '1.1.0'
 }
 
@@ -22,26 +21,21 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
-    compileOnly 'org.springframework.boot:spring-boot-starter-tomcat' // Tomcatを使用する場合はコメントアウトを外す
     //SpringBootStarterの依存関係を追
-    implementation 'org.springframework.boot:spring-boot-starter-web:3.2.6'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
 }
 
 test {
     useJUnitPlatform()
 }
 
-// Configure the WAR plugin
-//warファイルをビルドして、build/libsに配置。
-war {
-    archiveFileName = 'myapp.war'
-    destinationDirectory = file("build/libs")
-}
-// WARファイルをtransferディレクトリにコピー
-tasks.register('copyWarToTransferDir', Copy) {
-    dependsOn(tasks.named('war'))
-    from('build/libs')
-    into('transfer')
-    include('*.war')
+//依存を含まないjarを生成しないように、jarコマンドを上書き
+jar {
+    enabled = false
 }
 
+//bootJarを有効にして、生成物の名前を変更
+bootJar {
+    enabled = true
+    archiveFileName = 'app.jar'
+}

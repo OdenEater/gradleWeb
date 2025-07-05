@@ -26,16 +26,16 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-gradle
 
-      - name: Build WAR file
+      - name: Build jar file
         run: |
           chmod +x ./gradlew
-          ./gradlew war
+          ./gradlew clean test build
 
       - name: Upload WAR artifact
         uses: actions/upload-artifact@v4
         with:
-          name: myapp-war
-          path: build/libs/*.war
+          name: myapp.jar
+          path: build/libs/*.jar
           if-no-files-found: warn
           compression-level: 0
           overwrite: false
@@ -53,17 +53,5 @@ jobs:
       - name: Download WAR artifact
         uses: actions/download-artifact@v4
         with:
-          name: myapp-war
+          name: myappProduct.jar
           path: ./artifacts
-
-      - name: deploy to server
-        run: |
-          echo "Deploying WAR file to server..."
-          ls -la ./artifacts
-          # Add your deployment script here, e.g., using scp or rsync
-          # scp build/libs/*.war user@yourserver:/path/to/deploy/
-        env:
-          SERVER_USER: ${{ secrets.SERVER_USER }}
-          SERVER_HOST: ${{ secrets.SERVER_HOST }}
-          SERVER_PATH: ${{ secrets.SERVER_PATH }}
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}

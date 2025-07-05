@@ -20,6 +20,8 @@ dependencies {
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
+    //SpringBootStarterの依存関係を追
+    implementation 'org.springframework.boot:spring-boot-starter-web:3.2.6'
 }
 
 test {
@@ -31,11 +33,6 @@ test {
 war {
     archiveFileName = 'myapp.war'
     destinationDirectory = file("build/libs")
-    webInf {
-        from('src/main/webapp/WEB-INF') {
-            include 'web.xml'
-        }
-    }
 }
 // WARファイルをtransferディレクトリにコピー
 tasks.register('copyWarToTransferDir', Copy) {

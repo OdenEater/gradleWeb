@@ -1,4 +1,3 @@
-#ブランチnameがdev_で始まる場合に実行されるCI/CDパイプラインの設定
 name: CI/CD Pipeline
 on:
   push:

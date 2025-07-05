@@ -72,7 +72,7 @@ jobs:
       - name: Set artifact name
         run: |
           if [[ $BRANCH_NAME == master ]]; then
-            echo "ARTIFACT_NAME=${BASE_NAME}-production" >> $GITHUB_ENV
+            echo "ARTIFACT_NAME=${BASE_NAME}" >> $GITHUB_ENV
           else
             ENV_NAME=${BRANCH_NAME#dev_}
             echo "ARTIFACT_NAME=${BASE_NAME}-${ENV_NAME}" >> $GITHUB_ENV

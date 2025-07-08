@@ -1,5 +1,8 @@
 plugins {
     id 'java'
+    id 'checkstyle'
+    id 'pmd'
+    id 'jacoco'
     id 'org.springframework.boot' version '3.3.5'
     id 'io.spring.dependency-management' version '1.1.0'
 }
@@ -27,6 +30,8 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     // https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
     implementation 'com.mysql:mysql-connector-j:9.3.0'
+    // https://mvnrepository.com/artifact/net.sourceforge.pmd/pmd-java
+    implementation 'net.sourceforge.pmd:pmd-java:7.15.0'
 }
 
 test {
@@ -42,4 +47,28 @@ jar {
 bootJar {
     enabled = true
     archiveFileName = 'app.jar'
+}
+
+//checkstyleの設定
+checkstyle {
+    toolVersion = '10.9.1'
+    configFile = file('config/checkstyle/checkstyle.xml')
+}
+
+//pmdの設定
+pmd {
+    toolVersion = '7.15.0'
+    ruleSets = ['java-basic', 'java-design']
+    ruleSetFiles = files('config/pmd/ruleset.xml')
+}
+
+//jacocoの設定
+jacoco {
+    toolVersion = '0.8.10'
+}
+jacocoTestReport {
+    reports {
+        xml.required = true
+        html.required = true
+    }
 }

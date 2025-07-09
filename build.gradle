@@ -32,6 +32,7 @@ dependencies {
     implementation 'com.mysql:mysql-connector-j:9.3.0'
     // https://mvnrepository.com/artifact/net.sourceforge.pmd/pmd-java
     implementation 'net.sourceforge.pmd:pmd-java:7.15.0'
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
 }
 
 test {

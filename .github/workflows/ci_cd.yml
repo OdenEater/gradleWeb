@@ -47,6 +47,7 @@ jobs:
           chmod +x ./gradlew
           ./gradlew clean test build
 
+#アーティファクトを単独指定しないと.zipでアップロードされるため、jarを一つに指定。
       - name: Upload jar artifact
         uses: actions/upload-artifact@v4
         with:

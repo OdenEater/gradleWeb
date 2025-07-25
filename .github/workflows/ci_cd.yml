@@ -18,6 +18,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+          submodules: true
 
       - name: Set artifact name
         run: |
@@ -71,6 +73,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v3
+        with:
+            submodules: true
 
       - name: Set artifact name
         run: |
@@ -99,4 +103,4 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ env.ARTIFACT_NAME }}
-          path: ./artifacts
+          path: ./docker/target

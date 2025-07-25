@@ -31,4 +31,11 @@ public class BookController {
         bookRepository.save(book);
         return "Book added successfully!";
     }
+
+    //test method to check if the controller is working
+    //contextRoot/testのリクエストに対してtest.htmlを返却
+    @GetMapping("test")
+    public String test() {
+        return "<html><body><h1>Test Page</h1><p>This is a test page.</p></body></html>";
+    }
 }

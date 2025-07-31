@@ -1,22 +1,43 @@
-# src/main/resources/application-product.yml
+# src/main/resources/application-dev.yml
 server:
   port: 8080
-  address: 0.0.0.0
+  address: 127.0.0.1
 
 spring:
   application:
     name: myapp
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
   datasource:
-    url: jdbc:mysql://mysql:3306/${MYSQL_DATABASE}?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=Asia/Tokyo
-    username: ${MYSQL_USER}
-    password: ${MYSQL_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
         format_sql: true
         use_sql_comments: true
-        dialect: org.hibernate.dialect.MySQL8Dialect
+        dialect: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true  # 追加: JPAの初期化後にSQLスクリプトを実行
+  sql:
+    init:
+      mode: always  # 追加: アプリケーション起動時にSQLスクリプトを実行
+      schema-locations: classpath:schema.sql  # 追加: スキーマ定義のSQLファイル
+      data-locations: classpath:data.sql  # 追加: 初期データのSQLファイル
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        security.authentication: TRACE
+        security.web.csrf: TRACE
+        security.web.FilterChainProxy: DEBUG
+        web: DEBUG
+    org.example: DEBUG

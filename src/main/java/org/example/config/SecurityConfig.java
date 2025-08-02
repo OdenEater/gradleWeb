@@ -35,7 +35,7 @@ public class SecurityConfig {
                 )
                 // リクエスト認可ルール
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/css/**", "/js/**","/ico/**", "/error.html", "/login.html", "/csrf", "/test/**").permitAll()
+                        .requestMatchers("/css/**", "/js/**","/ico/**", "/error.html", "/login.html", "/csrf").permitAll()
                         .anyRequest().authenticated())
                 // フォームログイン設定
                 .formLogin(form -> form
@@ -68,11 +68,5 @@ public class SecurityConfig {
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
-    }
-
-    @Bean
-    public AuthenticationManager authenticationManager(
-            AuthenticationConfiguration authConfig) throws Exception {
-        return authConfig.getAuthenticationManager();
     }
 }

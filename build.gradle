@@ -21,6 +21,9 @@ repositories {
 }
 
 dependencies {
+    runtimeOnly 'com.h2database:h2:2.2.224'
+    developmentOnly 'org.springframework.boot:spring-boot-devtools'
+    implementation 'org.springframework.boot:spring-boot-starter-security'
     testImplementation platform('org.junit:junit-bom:5.10.0')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     compileOnly 'jakarta.servlet:jakarta.servlet-api:6.0.0'
@@ -33,6 +36,11 @@ dependencies {
     // https://mvnrepository.com/artifact/net.sourceforge.pmd/pmd-java
     implementation 'net.sourceforge.pmd:pmd-java:7.15.0'
     implementation 'org.springframework.boot:spring-boot-starter-aop'
+    compileOnly 'org.projectlombok:lombok:1.18.32'
+    annotationProcessor 'org.projectlombok:lombok:1.18.32'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testImplementation 'org.mockito:mockito-junit-jupiter:5.10.0'
 }
 
 test {
@@ -61,6 +69,14 @@ pmd {
     toolVersion = '7.15.0'
     ruleSets = ['java-basic', 'java-design']
     ruleSetFiles = files('config/pmd/ruleset.xml')
+}
+
+//bootRun実行時はdevプロファイルを使用
+bootRun {
+    jvmArgs = ['-Dspring.profiles.active=dev']
+    systemProperties = [
+            'spring.profiles.active': 'dev'
+    ]
 }
 
 //jacocoの設定

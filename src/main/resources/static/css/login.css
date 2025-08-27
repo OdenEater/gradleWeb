@@ -77,3 +77,74 @@ h2 {
     min-height: 1.2em;
     text-align: center;
 }
+
+/* タブUI用のスタイル */
+.tabs {
+    display: flex;
+    width: 100%;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.tab {
+    padding: 0.8rem 1.2rem;
+    cursor: pointer;
+    font-weight: 500;
+    color: #718096;
+    transition: all 0.3s ease;
+    border-bottom: 2px solid transparent;
+}
+
+.tab.active {
+    color: #4a90e2;
+    border-bottom: 2px solid #74ebd5;
+}
+
+.tab:hover {
+    background-color: #f7fafc;
+}
+
+/* フォームコンテナ */
+.form-container {
+    width: 100%;
+    transition: opacity 0.3s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+/* ボタンスタイル (既存のlogin-btnと統一) */
+.btn {
+    width: 100%;
+    padding: 0.8rem;
+    background: linear-gradient(90deg, #74ebd5 0%, #ACB6E5 100%);
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn:hover {
+    background: linear-gradient(90deg, #ACB6E5 0%, #74ebd5 100%);
+}
+
+/* エラーメッセージ */
+.error-msg {
+    margin-top: 1rem;
+    color: #e74c3c;
+    font-size: 0.98rem;
+    text-align: center;
+    display: none;
+}
+
+/* 成功メッセージ */
+.success-msg {
+    margin-top: 1rem;
+    color: #2ecc71;
+    font-size: 0.98rem;
+    text-align: center;
+}

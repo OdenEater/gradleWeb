@@ -2,29 +2,56 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>ログイン</title>
+    <title>ログイン・新規登録</title>
     <link rel="stylesheet" href="css/login.css">
+    <!--<link rel="stylesheet" href="css/common.css">-->
 </head>
 <body>
 <div class="login-container">
-    <h2>ログイン</h2>
-    <form action="/api/login" method="post" id="loginForm">
-        <div class="input-group">
-            <label for="username">ユーザー名</label>
-            <input type="text" id="username" name="username" required autocomplete="username">
+    <!-- タブUI -->
+    <div class="tabs">
+        <div class="tab active" data-tab="login">ログイン</div>
+        <div class="tab" data-tab="register">新規登録</div>
+    </div>
+
+    <!-- ログインフォーム -->
+    <div class="form-container" id="loginFormContainer">
+        <form action="/api/login" method="post" id="loginForm">
+            <div class="input-group">
+                <label for="username">ユーザー名</label>
+                <input type="text" id="username" name="username" required autocomplete="username">
+            </div>
+            <div class="input-group">
+                <label for="password">パスワード</label>
+                <input type="password" id="password" name="password" required autocomplete="current-password">
+            </div>
+            <button type="submit" class="btn">ログイン</button>
+        </form>
+        <div id="login-msg" class="msg"></div>
+        <div id="login-error-msg" class="error-msg">
+            ログインに失敗しました。ユーザー名とパスワードを確認してください。
         </div>
-        <div class="input-group">
-            <label for="password">パスワード</label>
-            <input type="password" id="password" name="password" required autocomplete="current-password">
-        </div>
-        <input type="hidden" name="_csrf" value="" id="csrfToken">
-        <button type="submit" class="login-btn">ログイン</button>
-    </form>
-    <div id="msg" class="msg"></div>
-    
-    <!-- エラーメッセージ表示 -->
-    <div id="error-msg" style="color: red; margin-top: 10px; display: none;">
-        ログインに失敗しました。ユーザー名とパスワードを確認してください。
+    </div>
+
+    <!-- 新規登録フォーム - メールアドレスフィールドを削除 -->
+    <div class="form-container hidden" id="registerFormContainer">
+        <form action="/api/users" method="post" id="registerForm">
+            <div class="input-group">
+                <label for="newUsername">ユーザー名</label>
+                <input type="text" id="newUsername" name="username" required autocomplete="username">
+            </div>
+            <div class="input-group">
+                <label for="newPassword">パスワード</label>
+                <input type="password" id="newPassword" name="password" required autocomplete="new-password">
+            </div>
+            <div class="input-group">
+                <label for="confirmPassword">パスワード（確認）</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" required autocomplete="new-password">
+            </div>
+            <button type="submit" class="btn">登録する</button>
+        </form>
+        <div id="register-msg" class="msg"></div>
+        <div id="register-error-msg" class="error-msg"></div>
     </div>
 </div>
 <script src="js/login.js"></script>

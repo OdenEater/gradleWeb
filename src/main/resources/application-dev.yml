@@ -30,6 +30,16 @@ spring:
       mode: always  # 追加: アプリケーション起動時にSQLスクリプトを実行
       schema-locations: classpath:schema.sql  # 追加: スキーマ定義のSQLファイル
       data-locations: classpath:data.sql  # 追加: 初期データのSQLファイル
+  servlet:
+    multipart:
+      max-file-size: 20MB
+      max-request-size: 20MB
+
+app:
+  storage:
+    local:
+      base-dir: ./uploads
+      public-base-url: "http://localhost:8080/static/uploads"
 
 logging:
   level:

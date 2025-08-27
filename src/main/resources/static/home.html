@@ -225,23 +225,11 @@
         logoutBtn.addEventListener('click', (e) => {
             e.preventDefault();
             if (confirm('ログアウトしますか？')) {
-                // CSRFトークンを含むフォームを作成してログアウト
                 const form = document.createElement('form');
                 form.method = 'POST';
                 form.action = '/api/logout';
-                
-                // CSRFトークンを取得してフォームに追加
-                fetch('/csrf')
-                    .then(response => response.json())
-                    .then(data => {
-                        const csrfInput = document.createElement('input');
-                        csrfInput.type = 'hidden';
-                        csrfInput.name = '_csrf';
-                        csrfInput.value = data.token;
-                        form.appendChild(csrfInput);
-                        document.body.appendChild(form);
-                        form.submit();
-                    });
+                document.body.appendChild(form);
+                form.submit();
             }
         });
 

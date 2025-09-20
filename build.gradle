@@ -54,13 +54,6 @@ bootJar {
     archiveFileName = 'app.jar'
 }
 
-//pmdの設定
-pmd {
-    toolVersion = '7.15.0'
-    ruleSets = ['java-basic', 'java-design']
-    ruleSetFiles = files('config/pmd/ruleset.xml')
-}
-
 //bootRun実行時はdevプロファイルを使用
 bootRun {
     jvmArgs = ['-Dspring.profiles.active=dev']

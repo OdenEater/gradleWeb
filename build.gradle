@@ -54,12 +54,6 @@ bootJar {
     archiveFileName = 'app.jar'
 }
 
-//checkstyleの設定
-checkstyle {
-    toolVersion = '10.9.1'
-    configFile = file('config/checkstyle/checkstyle.xml')
-}
-
 //pmdの設定
 pmd {
     toolVersion = '7.15.0'
